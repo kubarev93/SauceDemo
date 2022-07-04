@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AddItem extends BaseTest {
-//test1
+//test12
     @Test
     public void checkItemName() {
         loginPage.open();
