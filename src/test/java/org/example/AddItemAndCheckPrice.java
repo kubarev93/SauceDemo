@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.pages.CartPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,7 +21,8 @@ public class AddItemAndCheckPrice extends BaseTest {
         loginPage.open();
         loginPage.loginAsStandardUser();
         productsPage.addToCart("Sauce Labs Backpack");
+        String price = driver.findElement(By.xpath("//div[@class='inventory_item_price']")).getText();
         headerPage.openCart();
-        Assert.assertEquals(driver.findElement(By.xpath("//div[@class='inventory_item_price']")).getText(), "$29.99");
+        Assert.assertEquals(driver.findElement(By.xpath("//div[@class='inventory_item_price']")).getText(), price);
     }
 }
