@@ -1,10 +1,7 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.example.pages.CartPage;
-import org.example.pages.HeaderPage;
-import org.example.pages.LoginPage;
-import org.example.pages.ProductsPage;
+import org.example.pages.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,6 +20,7 @@ public class BaseTest {
     ProductsPage productsPage;
     HeaderPage headerPage;
     CartPage cartPage;
+    CheckOutPage checkOutPage;
 
     @BeforeMethod
     public void setUp() {
@@ -38,6 +36,7 @@ public class BaseTest {
         productsPage = new ProductsPage(driver);
         headerPage = new HeaderPage(driver);
         cartPage = new CartPage(driver);
+        checkOutPage = new CheckOutPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)

@@ -10,6 +10,8 @@ public class CartPage extends BasePage {
 
     String removeButton = "//div[text()='%s']//ancestor::div[@class='cart_item']//button[text()='Remove']";
     By productItemInCart = By.xpath("//div[@class='inventory_item_name']");
+
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -18,6 +20,7 @@ public class CartPage extends BasePage {
         By fullLocator = By.xpath(String.format(removeButton, productName));
         driver.findElement(fullLocator).click();
     }
+
 
     public List<WebElement> getAllProductsInCart() {
        return driver.findElements(productItemInCart);
