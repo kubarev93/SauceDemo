@@ -8,11 +8,13 @@ pipeline {
 
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch to run tests', name: 'BRANCH', type: 'PT_BRANCH'
+        credentials credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '66a23836-a761-45e9-9fe0-c6be97aab61a', name: 'CREDS', required: false
     }
 
     stages {
         stage('Build') {
             steps {
+             withCredentials([usernamePassword(credentialsId: "${params.CREDS}", usernameVariable: 'username_var', passwordVariable: 'password_var')]) {
                 // Get some code from a GitHub repository
                 git branch: "${params.BRANCH}", url: 'https://github.com/testershmester/SauceDemo.git'
 
@@ -21,6 +23,7 @@ pipeline {
 
                 // To run Maven on a Windows agent, use
                 bat "mvn clean test -DsuiteXmlFile=src/main/resources/smoke.xml"
+                }
             }
         }
         stage('Allure') {
