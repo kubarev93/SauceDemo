@@ -23,16 +23,22 @@ pipeline {
                  bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
-            post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                   allure includeProperties: false, jdk: '', results: [[path: ' target/allure-results']]
+        }
+    }
+    {
+    stage('Allure') {
+            steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'target/allure-results']]
+                    ])
                 }
             }
         }
-    }
-
 
 }
 
