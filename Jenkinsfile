@@ -5,28 +5,25 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
     }
-    parameters {
-            gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch to run tests', name: 'BRANCH', type: 'PT_BRANCH'
-        }
 
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch to run tests', name: 'BRANCH', type: 'PT_BRANCH'
+    }
 
     stages {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/kubarev93/SauceDemo.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/testershmester/SauceDemo.git'
 
                 // Run Maven on a Unix agent.
-                //sh "mvn clean test -DsuiteXmlFile=src/main/resources/smoke.xml"
+                // sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 // To run Maven on a Windows agent, use
-                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                bat "mvn clean test -DsuiteXmlFile=src/main/resources/smoke.xml"
             }
-
         }
-    }
-    {
-    stage('Allure') {
+        stage('Allure') {
             steps {
                 script {
                     allure([
@@ -39,7 +36,5 @@ pipeline {
                 }
             }
         }
-
-}
-
+    }
 }
