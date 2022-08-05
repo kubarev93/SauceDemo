@@ -16,7 +16,7 @@ pipeline {
             steps {
              withCredentials([usernamePassword(credentialsId: "${params.CREDS}", usernameVariable: 'username_var', passwordVariable: 'password_var')]) {
                 // Get some code from a GitHub repository
-                git branch: "${params.BRANCH}", url: 'https://github.com/testershmester/SauceDemo.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/kubarev93/SauceDemo.git'
 
                 // Run Maven on a Unix agent.
                 // sh "mvn -Dmaven.test.failure.ignore=true clean package"
